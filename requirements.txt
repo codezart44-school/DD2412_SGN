@@ -1,4 +1,8 @@
-# Use python3.10!
+# Use python3.10 in venv!
+# For mac, run the following commands for setup:
+# > python3.10 -m venv .venv
+# > . .venv/bin/actiave
+# > pip install -r requirements.txt
 
 # numpy
 # pandas
