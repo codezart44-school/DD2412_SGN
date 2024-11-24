@@ -3,6 +3,38 @@ Reimplementation and Extension of paper ROBUST CLASSIFICATION VIA REGRESSION FOR
 
 Github: https://github.com/ErikEnglesson/SGN 
 
+### Our project structure
+```
+src/
+|
+|-- datasets/
+|   |-- mnist-cloathing ??
+|   |-- cifar10
+|   |-- cifar100
+|
+|-- models/
+|   |-- ...
+|   |-- sgn.py
+|
+|-- methods/
+|   |-- loss_reweighting.py
+|   |-- label_correction.py
+|   |-- self_supervision.py
+|
+|-- experiments/
+|   |-- noise_variation.py
+|   |-- noise_type_variation.py
+|   |-- scalability.py
+|
+|-- utils/
+|   |-- metrics.py
+|   |-- plots.py
+|   |-- config.py
+|
+|-- main.py
+```
+
+
 ### Datasets
 * Cifar10
 * Cifar100
