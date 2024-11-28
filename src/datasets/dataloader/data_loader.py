@@ -18,21 +18,21 @@ class DataLoaderCIFAR10:
     transform_test  = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mean, std)]) # NO AUGMENTATION ALLOWED
 
     @classmethod
-    def get_loader(cls, transform_train=None, transform_test=None, data_dir='data/'):
+    def get_loader(cls, transform_train=None, transform_test=None, data_dir='data/', batch_size=128):
 
         if transform_train is None:
             transform_train = cls.transform_train
         
         if transform_test is None:
             transform_train = cls.transform_test
-
+            
         # Create PyTorch datasets
         train_dataset = torchvision.datasets.CIFAR10(root=data_dir, train=True, download=False, transform=transform_train)
         test_dataset = torchvision.datasets.CIFAR10(root=data_dir, train=False, download=False, transform=transform_test)
 
         # Create PyTorch dataloaders
-        train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=128, shuffle=True, num_workers=0)
-        test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=128, shuffle=False, num_workers=0)
+        train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+        test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=0)
 
         return train_loader, test_loader
 

@@ -70,9 +70,10 @@ def regression_transform(
 
 
 if __name__ == '__main__':
-
-    train_loader, test_loader = DataLoaderCIFAR10.get_loader()
+    train_loader, test_loader = DataLoaderCIFAR10.get_loader(batch_size=128)
     for _, labels in train_loader:
-        ilr_labels = regression_transform(labels, num_classes=10, smoothing=0.1)
+        ilr_labels = regression_transform(labels=labels, num_classes=10, smoothing=0.1)
         print(ilr_labels.shape, ilr_labels[0])
         break
+
+    
