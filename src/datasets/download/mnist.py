@@ -1,5 +1,5 @@
 # imports
-from datautils import download_mnist
+from datasets.download.datautils import download_mnist
 import numpy as np
 import matplotlib.pyplot as plt
 import torch
