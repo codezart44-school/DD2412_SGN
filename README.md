@@ -61,3 +61,9 @@ We have decided to focus on extension option [1] self-supervised pretraining as 
 * Noise type variation: Assess how these methods’ performances are impacted by symmetric contra asymmetric noise in the labels (noise scattered evenly among all classes or concentrated to one or a few classes at a time). 
 * Model scalability: Implement these methods for models of different scales (ResNet-18 … ResNet-50) to assess how well these methods extend to more complex and sophisticated network architectures. Assess how computational efficiency is impacted - does the increase in performance justify the computational cost?  
 
+## NOTES
+---
+Main methods for reducing noise impact:
+* Loss reweighting
+* Label correction
+
