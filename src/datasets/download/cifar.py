@@ -1,9 +1,8 @@
 # imports
-from datautils import download_mnist
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 import torch
-
+from datasets.download.datautils import download_cifar10, download_cifar100
 
 #=========================================================================================#
 
@@ -12,7 +11,11 @@ import torch
 #=========================================================================================#
 
 def main():
-    mnist_train, mnist_test = download_mnist()
+    _, _ = download_cifar10()
+    # _, _ = download_cifar100()
 
 if __name__=='__main__':
     main()
+
+
+
