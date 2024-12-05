@@ -68,7 +68,6 @@ def regression_transform(
     return ilr_transform(p, num_classes)
 
 
-
 if __name__ == '__main__':
     train_loader, test_loader = DataLoaderFashionMNIST.get_loaders(batch_size=128)
     for _, labels in train_loader:
