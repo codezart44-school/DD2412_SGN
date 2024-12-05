@@ -1,4 +1,4 @@
-from datasets.dataloader.mnist import DataLoaderCIFAR10
+from datasets.dataloader.mnist import DataLoaderFashionMNIST
 import torch
 import torch.nn.functional as F
 import numpy as np
@@ -70,7 +70,7 @@ def regression_transform(
 
 
 if __name__ == '__main__':
-    train_loader, test_loader = DataLoaderCIFAR10.get_loaders(batch_size=128)
+    train_loader, test_loader = DataLoaderFashionMNIST.get_loaders(batch_size=128)
     for _, labels in train_loader:
         ilr_labels = regression_transform(labels=labels, num_classes=10, smoothing=0.1)
         print(ilr_labels.shape, ilr_labels[0])
