@@ -89,10 +89,16 @@ class NoisyFashionMNIST(Dataset):
 
         # Define plausible misclassification probabilities manually
         plausible_transitions = {
+            0: [2, 6], # T-shirt -> Pullover, shirt
+            1: [6], # Trouser -> Shirt
+            2: [0, 6], # Pullover -> T-shirt, shirt
             3: [4],  # Dress -> Coat
-            4: [3],  # Coat -> Dress
-            2: [6],  # Pullover -> Shirt
-            6: [2],  # Shirt -> Pullover
+            4: [3],  # Coat -> Dress,
+            5: [9], # Sandal -> Ankle boot
+            6: [0, 2],  # Shirt -> T-shirt, pullover,
+            7: [5], # Sneaker -> Sandal
+            8: [7], # Bag -> Sneaker
+            9: [5] # Ankle Boot -> Sandal 
         }
 
         # Assign higher probabilities for plausible transitions
@@ -103,7 +109,7 @@ class NoisyFashionMNIST(Dataset):
                     if i in plausible_transitions:
                         transition_prob_factor = 0.7
                         if j in plausible_transitions.get(i):
-                            matrix[i, j] = self.noise_rate * transition_prob_factor
+                            matrix[i, j] = self.noise_rate * transition_prob_factor / (len(plausible_transitions.get(i)))
                         else:
                             matrix[i, j] = self.noise_rate * (1-transition_prob_factor) / (num_classes - (1 + len(plausible_transitions.get(i))))
 
@@ -111,7 +117,7 @@ class NoisyFashionMNIST(Dataset):
                         matrix[i, j] = self.noise_rate / (num_classes - 1)
 
         # Normalize rows to sum to 1
-        matrix = matrix / matrix.sum(axis=1, keepdims=True)
+        #matrix = matrix / matrix.sum(axis=1, keepdims=True)
         print_matrix(matrix)
         return matrix
 
@@ -183,7 +189,7 @@ class DataLoaderFashionMNIST:
 
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
-    dataloader_train, dataloader_test = DataLoaderFashionMNIST.get_loaders(noise_type='asymmetric', noise_rate=0.99)
+    dataloader_train, dataloader_test = DataLoaderFashionMNIST.get_loaders(noise_type='asymmetric', noise_rate=0.5)
 
     for batch in dataloader_train:
         images, labels = batch
