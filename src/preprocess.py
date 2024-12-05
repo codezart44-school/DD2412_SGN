@@ -1,4 +1,4 @@
-from datasets.dataloader.data_loader import DataLoaderCIFAR10
+from datasets.dataloader.mnist import DataLoaderCIFAR10
 import torch
 import torch.nn.functional as F
 import numpy as np
