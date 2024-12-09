@@ -5,10 +5,10 @@ import torch.functional as F    # provides functions for activation, loss etc.
 # import torch.optim as optim     # provides optimizers like SGD, Adam, etc for training. 
 
 
-class BasicBlock(nn.Module):
+class ResnetBlock(nn.Module):
     """Basic residual block of two 3x3 convolutions."""
     def __init__(self, in_channels, out_channels, stride=1, conv_l2=0.0, bn_l2=0.0, version=1):
-        super(BasicBlock, self).__init__()
+        super().__init__()
         self.version = version
 
         self.bn1 = nn.BatchNorm2d(in_channels, eps=1e-5, momentum=0.9)
@@ -21,7 +21,7 @@ class BasicBlock(nn.Module):
             self.shortcut = nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=stride, bias=False)
 
     def forward(self, x):
-        if self.version == 2:
+        if self.version == 2: # Version changes the order of the relu activation 
             out = F.relu(self.bn1(x))
             shortcut = self.shortcut(out)
         else:
@@ -62,10 +62,10 @@ class WideResNet(nn.Module):
 
     def _make_group(self, out_channels, num_blocks, stride, version, conv_l2, bn_l2):
         layers = []
-        layers.append(BasicBlock(self.in_channels, out_channels, stride, conv_l2, bn_l2, version))
+        layers.append(ResnetBlock(self.in_channels, out_channels, stride, conv_l2, bn_l2, version))
         self.in_channels = out_channels
         for _ in range(1, num_blocks):
-            layers.append(BasicBlock(out_channels, out_channels, stride=1, conv_l2=conv_l2, bn_l2=bn_l2, version=version))
+            layers.append(ResnetBlock(out_channels, out_channels, stride=1, conv_l2=conv_l2, bn_l2=bn_l2, version=version))
         return nn.Sequential(*layers)
 
     def forward(self, x):
