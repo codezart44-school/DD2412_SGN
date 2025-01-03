@@ -1,11 +1,17 @@
-# DD2412 HT24 Deep Learning, Advanced Course - Shifted Gaussian Noise (SGN), Group 7
-Reimplementation and Extension of paper ROBUST CLASSIFICATION VIA REGRESSION FOR LEARNING WITH NOISY LABELS (2024) (https://openreview.net/pdf?id=wfgZc3IMqo) by Erik Englesson &amp; Hossein Azizpour. Final Project in DD2412 HT24 Deep Learning, Advanced Course (DLAHT22)
+# Robust Classification via Regression for Learning with Noisy Labels
+
+__DD2412 HT24 Deep Learning, Advanced Course - Shifted Gaussian Noise (SGN), Group 7__
+
+## Overview
+
+This project is a reimplementation and analysis of the method proposed in the paper *"Robust Classification via Regression for Learning with Noisy Labels"* by Englesson and Azizpour (ICLR 2024). The study explores the use of a **Shifted Gaussian Noise (SGN)** model for mitigating the impact of noisy labels in supervised deep learning tasks.
+
+The primary focus is to validate the robustness of SGN in comparison to baseline methods under resource-constrained conditions. The experiments are conducted on the CIFAR-10 dataset with symmetric and asymmetric label noise.
 
 Github: https://github.com/ErikEnglesson/SGN 
 
 
-
-### Our project structure
+## Project structure
 ```
 src/
 |
@@ -35,33 +41,66 @@ src/
 ```
 
 
-### Datasets
-* Cifar10
 
-## Methods for handling noise
-### Baseline Methods
-* Cross-Entropy (CE) as a fundamental baseline.
-* Generalized Cross-Entropy (GCE) for its robustness to noisy labels.
-* 
+## Key Features of SGN
 
-These baselines align well with our project scope and ensure a meaningful comparison without overextending our resources. 
+1. **Loss Reweighting (LR):** Adjusts the impact of noisy samples during training by predicting a covariance matrix.
+2. **Label Correction (LC):** Dynamically estimates true labels using a Gaussian noise model in a transformed regression space.
+3. **Unified Framework:** Combines LR and LC for robust performance under noisy label conditions.
 
-### Other Methods
-* Heteroscedastic Noise (HET) and Noise Against Noise (NAN) approaches that use Gaussian noise models similar to our loss reweighting.
-* Early-Learning Regularization (ELR), Symmetric and Asymmetric Optimization (SOP), and Noise Attention Learning (NAL) which are relevant due to their loss reweighting or label correction features.
 
-## Extension Plan:
-We have decided to focus on extension option [1] self-supervised pretraining as it actually seems relevant to the task of classification via regression with noisy labels, and we want to investigate how self-supervised pretraining could synergize with the robustness-methods against noisy labels mentioned above. This involves pretraining with contrastive learning methods to acquire robustness when fine-tuning with noisy labels. We ask ourselves: Will pretrainign be effective in this context of noisy labels? Do we see better or faster convergence or both? 
 
-## Experiments: 
-* Baselines comparison: Quantitative comparison of this implementation and other methods for label noise robustness. For fair assessment we want to include datasets many other models have been tested on. 
-* Noise level variation: Test the implementations under many levels of noise (10% … 90%) to see method performance changes as noise levels increase / decrease. 
-* Noise type variation: Assess how these methods’ performances are impacted by symmetric contra asymmetric noise in the labels (noise scattered evenly among all classes or concentrated to one or a few classes at a time). 
-* Model scalability: Implement these methods for models of different scales (ResNet-18 … ResNet-50) to assess how well these methods extend to more complex and sophisticated network architectures. Assess how computational efficiency is impacted - does the increase in performance justify the computational cost?  
+## Methodology
+### Dataset
+- **CIFAR-10**: 60,000 images, 10 classes.
+- Experiments conducted with:
+  - Symmetric noise levels: 0%, 20%, 40%.
+  - Asymmetric noise levels: 20%, 40%.
 
-## NOTES
----
-Main methods for reducing noise impact:
-* Loss reweighting
-* Label correction
+### Models Implemented
+- **Cross-Entropy (CE):** Standard classification baseline.
+- **Generalized Cross-Entropy (GCE):** Incorporates robustness parameter for noisy labels.
+- **Early Learning Regularization (ELR):** Prevents overfitting noisy labels.
+- **Shifted Gaussian Noise (SGN):** Core method under evaluation.
 
+### Extensions
+- Temporal analysis over training epochs to assess learning dynamics.
+- Complex asymmetric noise label mappings to reflect real-world conditions.
+
+
+
+## Results
+### Performance Highlights
+- **SGN** demonstrated robust performance under both symmetric and asymmetric noise.
+- Outperformed CE and ELR consistently, particularly in high asymmetric noise scenarios.
+- **GCE** showed slightly better performance in symmetric noise but overfit in asymmetric conditions.
+
+### Ablation Study
+- Loss Reweighting and Label Correction were identified as critical components of SGN's robustness.
+- Disabling either component resulted in reduced stability and accuracy.
+
+### Key Observations
+- SGN uniquely avoids overfitting in late training stages.
+- Early stopping can improve results for some methods but introduces complexity and instability.
+
+
+
+## Conclusion
+This reimplementation validates SGN as a promising solution for learning with noisy labels. Despite resource constraints and reduced training epochs, SGN exhibited stable and robust performance - proving to be less sensitive to noise and holding a stable learning curve. 
+
+### Future Directions
+- Extending evaluations to larger datasets like CIFAR-100 or ImageNet.
+- Exploring dynamic noise modeling and semi-supervised learning integration.
+- Adopting standardized robustness metrics for comprehensive evaluation.
+
+
+
+## References
+- Englesson, E., & Azizpour, H. (2024). *Robust Classification via Regression for Learning with Noisy Labels*. [Paper Link](https://openreview.net/pdf?id=wfgZc3IMqo)
+- CIFAR-10 Dataset: [Website](https://www.cs.toronto.edu/~kriz/cifar.html)
+
+
+
+## Authors
+- Oskar Wallberg (oskarew@kth.se)
+- Johannes Rosing (jrosing@kth.se)
