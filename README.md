@@ -9,44 +9,40 @@ Github: https://github.com/ErikEnglesson/SGN
 ```
 src/
 |
-|-- datasets/
-|   |-- mnist-cloathing ??
+|-- datasets/ 
 |   |-- cifar10
-|   |-- cifar100
+|   |-- cifar100  # Not Used!
 |
 |-- models/
-|   |-- ...
-|   |-- sgn.py
+|   |-- wide_resnet_28_2.py
 |
 |-- methods/
-|   |-- loss_reweighting.py
-|   |-- label_correction.py
-|   |-- self_supervision.py
+|   |-- ce.py
+|   |-- elr.py
+|   |-- gce.py
+|   |-- het.py  # Not Used!
+|   |-- sgn.py
 |
-|-- experiments/
-|   |-- noise_variation.py
-|   |-- noise_type_variation.py
-|   |-- scalability.py
+|-- experiments/  # Entry points!
+|   |-- ce.py
+|   |-- elr.py
+|   |-- gce.py
+|   |-- het.py  # Not Used!
+|   |-- sgn.py  # Includes Ablation Study Params
 |
 |-- utils/
-|   |-- metrics.py
-|   |-- plots.py
 |   |-- config.py
-|
-|-- main.py
 ```
 
 
 ### Datasets
 * Cifar10
-* Cifar100
-* ?Cloathing1M (Large and cumbersome)
 
 ## Methods for handling noise
 ### Baseline Methods
 * Cross-Entropy (CE) as a fundamental baseline.
 * Generalized Cross-Entropy (GCE) for its robustness to noisy labels.
-* Label Smoothing (LS), which aligns with our method's use for transforming to a compositional dataset.
+* 
 
 These baselines align well with our project scope and ensure a meaningful comparison without overextending our resources. 
 
